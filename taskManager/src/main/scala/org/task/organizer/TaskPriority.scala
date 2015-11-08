@@ -8,6 +8,7 @@ object TaskPriority extends Enumeration {
 
   type TaskPriority = Value
 
+  val zero = Value(0)
   val one = Value(1)
   val two = Value(2)
   val three = Value(3)
