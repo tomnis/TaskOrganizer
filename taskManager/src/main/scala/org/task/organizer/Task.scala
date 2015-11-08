@@ -2,7 +2,9 @@ package org.task.organizer
 
 import java.util.Date
 
-/** A task created by the user.
+import org.task.organizer.TaskPriority.TaskPriority
+
+/** Created by jayonhuh on 11/8/15. A task created by the user.
   *
   * @constructor create a new task with a name, description, due date, priority
   * level, and dependencies. 
