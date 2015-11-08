@@ -1,3 +1,6 @@
+package org.task.organizer
+
+import java.util.Date
 
 /** A task created by the user.
   *
