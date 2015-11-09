@@ -1,6 +1,7 @@
 package org.task.organizer
 
 import java.util.Date
+
 import org.task.organizer.TaskPriority.TaskPriority
 
 /** Created by jayonhuh on 11/8/15. A task created by the user.
