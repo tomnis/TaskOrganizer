@@ -1,5 +1,9 @@
 package org.task.organizer
 
+import java.util.Date
+
+import org.task.organizer.TaskPriority.TaskPriority
+
 import scala.collection.mutable
 
 /**
@@ -22,13 +26,54 @@ class TaskContainer(var name: String, var orderType: Ordering[Task]) {
     this(name, DueDateOrdering)
   }
 
+  /** Method that creates a task and adds it to the task container
+    *
+    *@param name The name of the task to be created
+    *@param description Description of the task
+    *@param dueDate The Due date of the task
+    *@param priorityLevel The level of priority of the task
+    *@param dependencies The other tasks that are dependencies of the task to be created
+    */
+  def createAndAddTask(name: String,
+                       description: String,
+                       dueDate: Date,
+                       priorityLevel: TaskPriority,
+                       dependencies: List[Task]): Unit = {
+
+    // Call the Task constructor.
+    val newTask: Task = new Task(name, description, dueDate, priorityLevel, dependencies)
+
+    // Add it to the taskQueue using the addTask method.
+    this.addTask(newTask)
+
+  }
+
   /** Method that adds a task to the task container with no return type.
     *
     * @param inputTask The task that is being added to the task container.
     */
   def addTask(inputTask: Task): Unit = this.taskQueue += inputTask
 
+  /** Method to remove a task element from the priority queue of a TaskContainer
+    *
+    * @param taskToBeRemoved The task that will be removed from the priority queue.
+    */
+  def removeTask(taskToBeRemoved: Task): Unit = {
 
+    // Convert the TaskContainer's queue in to a list for node deletion.
+    val newList: mutable.Buffer[Task] = this.taskQueue.toBuffer
 
+    // Remove task specified from the list
+    newList -= taskToBeRemoved
+
+    // Clear the priority queue for the TaskContainer
+    this.taskQueue.clear
+
+    // Loop through each task in newList and add them to our queue
+    for (task: Task <- newList) {
+      this.taskQueue += task
+    }
+
+  }
 
 }
