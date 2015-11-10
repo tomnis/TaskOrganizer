@@ -1,6 +1,6 @@
 package org.task.organizer
 
-import java.util.Date
+import java.util.Calendar
 
 import org.task.organizer.TaskPriority.TaskPriority
 
@@ -16,13 +16,19 @@ import org.task.organizer.TaskPriority.TaskPriority
   * @param dependencies A list of other tasks that this task is dependent upon
   */
 class Task(val name: String,
- 		   val description: String,
- 		   val dueDate: Date,
- 		   val priorityLevel: TaskPriority,
- 		   val dependencies: List[Task]) {
+					 val description: String,
+					 var dueDate: Calendar,
+					 val priorityLevel: TaskPriority,
+					 val dependencies: List[Task]) {
 
-	// persist the creation time for comparison purposes
-	val timeCreated: Long = System.currentTimeMillis
+	// Persist the creation time for comparison purposes
+	val timeCreated: Calendar = Calendar.getInstance()
+
+	// Create Calendar instance to store the completed time
+	var timeCompleted: Calendar = _
+
+	// Set a Boolean to keep track of the complete state as false
+	var complete: Boolean = false
 
 
 	/** Creates a task with only a name and description specified.
@@ -32,6 +38,19 @@ class Task(val name: String,
 		*/
 	def this(name: String, description: String) {
 		this(name, description, null, TaskPriority.zero, List.empty)
+	}
+
+	/** Put a task into the complete state for when the task is complete
+	  *
+	  */
+	def completeTask(): Unit = {
+
+		// Set the complete state for the Task to true
+		this.complete = true
+
+		// Log the completion time
+		this.timeCompleted = Calendar.getInstance()
+
 	}
 
 }

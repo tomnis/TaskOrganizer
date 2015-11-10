@@ -5,6 +5,7 @@ import java.util.Date
 import org.task.organizer.TaskPriority.TaskPriority
 
 import scala.collection.mutable
+import scala.collection.mutable.ListBuffer
 
 /**
   * Created by jayonhuh on 11/8/15. The class that contains all tasks for a given account.
@@ -17,6 +18,9 @@ class TaskContainer(var name: String, var orderType: Ordering[Task]) {
 
   // Instantiate a queue to contain all Task instances with due date ordering as the default sorting.
   val taskQueue: mutable.PriorityQueue[Task] = new mutable.PriorityQueue[Task]()(this.orderType)
+
+  // Instantiate a ListBuffer that will contain all completed tasks.
+  val completedTaskList: mutable.ListBuffer[Task] = new ListBuffer[Task]
 
   /** Creates a task container with only the name as an input.
     *
@@ -45,6 +49,28 @@ class TaskContainer(var name: String, var orderType: Ordering[Task]) {
 
     // Add it to the taskQueue using the addTask method.
     this.addTask(newTask)
+
+  }
+
+  /** Completion logic when a task is completed.
+    *
+    * The input of this method is the task that has been completed by the user.
+    * The task will first call it's own completion logic, where its 'complete' flag
+    * is set as true and a Calendar instance is created to represent its complete time.
+    * then the task will put be in the TaskContainer's CompletedTasks.
+    *
+    * @param completedTask task that has been completed by the user
+    */
+  def completeTask(completedTask: Task): Unit = {
+
+    // Run completion logic on the task
+    completedTask.completeTask()
+
+    // Remove task from the taskQueue
+    this.removeTask(completedTask)
+
+    // add the completed task to the completedTaskList
+    completedTaskList += completedTask
 
   }
 
