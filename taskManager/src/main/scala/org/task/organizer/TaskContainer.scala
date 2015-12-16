@@ -1,6 +1,6 @@
 package org.task.organizer
 
-import java.util.Date
+import java.util.{Calendar, Date}
 
 import org.task.organizer.TaskPriority.TaskPriority
 
@@ -40,7 +40,7 @@ class TaskContainer(var name: String, var orderType: Ordering[Task]) {
     */
   def createAndAddTask(name: String,
                        description: String,
-                       dueDate: Date,
+                       dueDate: Calendar,
                        priorityLevel: TaskPriority,
                        dependencies: List[Task]): Unit = {
 
