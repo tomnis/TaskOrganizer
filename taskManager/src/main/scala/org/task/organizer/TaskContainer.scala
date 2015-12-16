@@ -1,6 +1,6 @@
 package org.task.organizer
 
-import java.util.Calendar
+import java.util.{Calendar, Date}
 
 import org.task.organizer.TaskPriority.TaskPriority
 
